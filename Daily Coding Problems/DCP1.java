@@ -28,7 +28,7 @@
  * @author Cole Thomson
  *
  */
-public class Main1 {
+public class DCP1 {
 	
 	static int uniquePaths = 0; // unique ways to climb the stairs
 								// (used in stairCasePt1 and ..Pt2)

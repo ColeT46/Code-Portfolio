@@ -23,7 +23,7 @@ import java.util.HashSet;
  * @author Cole Thomson
  *
  */
-public class Main2 {
+public class DCP2 {
 
 	/**
 	 * Main method to test methods that solve problem

@@ -18,7 +18,7 @@ import java.util.Arrays;
 //
 // Follow-up: what if you can't use division?
 
-public class Main3 {
+public class DCP3 {
 	
 	/**
 	 * Main method to test methods that solve problem
