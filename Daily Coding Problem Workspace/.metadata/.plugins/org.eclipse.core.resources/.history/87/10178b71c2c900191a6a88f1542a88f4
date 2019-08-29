@@ -1,0 +1,73 @@
+import java.util.Arrays;
+import java.util.HashSet;
+
+
+/*
+ * Daily Coding Problem #2 8/16/2019
+ * Source: dailycodingproblem.com
+ * Author: Cole Thomson
+ * Date: 08/15/2019
+ */
+
+// Problem:
+// Given a list of numbers and a number k, return whether any two numbers 
+// from the list add up to k.
+//
+// For example, given [10, 15, 3, 7] and k of 17, return true since 10 + 7 is 17.
+//
+// Bonus: Can you do this in one pass?
+public class Main2 {
+
+	public static void main(String[] args) {
+		// Test 1 Params
+		int[] x = {10, 15, 3, 7}; // test list of numbers
+		int k = 17; // test number 
+		
+		// Test 2 Params
+		int[] y = {11, 19, 3, 60, 42, 4, 23};
+		int l = 74;
+		
+		System.out.println("Test01 doesSumExist method. \n"
+				+ "k: " + k + "\n"
+				+ "x: " + Arrays.toString(x) + "\n"
+				+ "Expected return: true \n"
+				+ "Actual return: " + doesSumExist(x, k) + "\n"
+		);
+
+		System.out.println("Test02 doesSumExist method. \n"
+				+ "l: " + l + "\n"
+				+ "y: " + Arrays.toString(y) + "\n"
+				+ "Expected return: false \n"
+				+ "Actual return: " + doesSumExist(y, l)
+		);
+	}
+	
+	/**
+	 * Method checks if two of the numbers in the list sum to the given number:
+	 * n. The first two numbers that are found to sum to n will result in the
+	 * method returning true; otherwise if no two numbers sum to n, the method
+	 * returns false.
+	 * @param numList - list of numbers to check
+	 * @param n - number which addends are desired to be found in list
+	 * @return true if two numbers in list sum to n; and false otherwise
+	 */
+	static boolean doesSumExist(int[] numList, int n) {
+		HashSet<Integer> diffSet = new HashSet<Integer>(); // set of diffs
+		
+		// For each number in the given number list
+		for (int i = 0; i < numList.length; i++) {
+			// If set of differneces contains the current number in list
+			if (diffSet.contains(numList[i])) {
+				// a valid difference is found to sum to n: return true
+				return true;
+			}
+			// Valid difference not found, add difference to set
+			else {
+				diffSet.add(n - numList[i]);
+			}
+		}
+		// no two numbers in array add up to n: return false
+		return false; 		
+	}
+
+}

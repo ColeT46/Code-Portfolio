@@ -1,0 +1,136 @@
+/*
+ * Daily Coding Problem #1 8/15/2019
+ * Source: dailycodingproblem.com
+ * Author: Cole Thomson
+ * Date: 08/15/2019
+ */
+
+// Problem:
+// There's a staircase with N steps, and you can climb 1 or 2 steps at a time. 
+// Given N, write a function that returns the number of unique ways you can 
+// climb the staircase. The order of the steps matters.
+//
+// For example, if N is 4, then there are 5 unique ways:
+//
+// 1, 1, 1, 1
+// 2, 1, 1
+// 1, 2, 1
+// 1, 1, 2
+// 2, 2
+// What if, instead of being able to climb 1 or 2 steps at a time, you could 
+// climb any number from a set of positive integers X? For example, 
+// if X = {1, 3, 5}, you could climb 1, 3, or 5 steps at a time. 
+// Generalize your function to take in X.
+
+/**
+ * Main class that contains all fields and methods for solving the proposed
+ * problem.
+ * @author Cole Thomson
+ *
+ */
+public class Main1 {
+	
+	static int uniquePaths = 0; // unique ways to climb the stairs
+	
+	/**
+	 * Main method to test methods
+	 * @param args - unused
+	 */
+	public static void main(String[] args) {
+		int[] testStepSizes1 = {1, 2};    // step sizes 1 & 2
+		int[] testStepSizes2 = {1, 3, 5}; // step sizes 1 & 3 & 5
+ 		
+		// Test recursive staircase method (step sizes in method)
+		staircasePt1(15);
+ 		System.out.println("Recursive stair case method (step sizes in method)"
+ 				+ "\n - Number of unique paths: " + uniquePaths);
+ 		
+ 		uniquePaths = 0; // reset
+ 		
+ 		// Test recursive staircase method (generic step sizes)
+ 		staircasePt2(4, testStepSizes2);
+ 		System.out.println("Recursive stair case method (generic step sizes)"
+ 				+ "\n - Number of unique paths: " + uniquePaths);
+ 		
+ 		// Test cache staircase method
+ 		System.out.println("Cache stair case method"
+ 				+ "\n - Number of unique paths: " 
+ 				+ staircaseAlternative(4, testStepSizes1));
+	}
+		
+	/**
+	 * Recursive method to calculate the number of unique paths to get from 
+	 * step 0 to step n by taking possible steps of 1 or 2 at a time.
+	 * @param n - number of steps
+	 * @return number of unique ways to climb the stairs
+	 */
+	static void staircasePt1(int n) {
+		int[] x = { 1, 2 };
+
+		// For each possible steps we can take from our current location
+		for (int i = 0; i < x.length; i++) { // O(m)
+			// If we are at the top of the stairs, we have found a unique path
+			if (n - x[i] == 0) {
+				uniquePaths++;
+			}
+			// Else if there are steps to take to get to the top of the stairs
+			else if (n - x[i] > 0) {
+				staircasePt1(n - x[i]);
+			}
+
+		}
+	}
+	
+	/**
+	 * Recursive method to calculate the number of unique paths to get from 
+	 * step 0 to step n by taking possible steps determined by array passed
+	 * to method.
+	 * @param n - number of steps on the stairs
+	 * @param x - array of possible number of steps you can take at each 
+	 * 			  position.
+	 * @return number of unique ways to climb the stairs
+	 */
+	static void staircasePt2(int n, int[] x) {
+
+		// For each possible steps we can take from our current location
+		for (int i = 0; i < x.length; i++) {
+			// If we are at the top of the stairs, we have found a unique path
+			if (n - x[i] == 0) {
+				uniquePaths++;
+			}
+			// Else if there are steps to take to get to the top of the stairs
+			else if (n - x[i] > 0) {
+				staircasePt2(n - x[i], x);
+			}
+		}
+	}
+	
+	/**
+	 * Alternative method using cache of previous number that it takes. This
+	 * method does not require a global variable that requires to be reset.
+	 * Method caches number of unique ways to reach step i. The number of 
+	 * unique ways to reach step i+1 is equal to the sum of the number of
+	 * unique ways to reach each step i - k where k is in the array of possible
+	 * number of steps given by the method caller.
+	 * @param n - number of steps on the stairs
+	 * @param x - array of possible number of steps you can take at each 
+	 * 			  position.
+	 * @return number of unique ways to climb the stairs
+	 */
+	static int staircaseAlternative(int n, int[] x) {
+		int[] cache = new int[n + 1];
+		cache[0] = 1;
+		// for each step on the stairs
+		for (int i = 1; i < n + 1; i++) {
+			// for each number of possible steps
+			for (int j = 0; j < x.length; j++) {
+				// if able to take this many number of steps  
+				if(i - x[j] >= 0) {
+					// add num of unique steps to get to step i-x[j] to cache
+					cache[i] += cache[i - x[j]];
+				}
+			}
+		}
+		return cache[n];
+	}
+}

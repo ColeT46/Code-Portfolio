@@ -1,0 +1,123 @@
+import java.util.Arrays;
+import java.util.HashSet;
+
+
+/*
+ * Daily Coding Problem #2 8/16/2019
+ * Source: dailycodingproblem.com
+ * Author: Cole Thomson
+ * Date: 08/15/2019
+ */
+
+// Problem:
+// Given a list of numbers and a number k, return whether any two numbers 
+// from the list add up to k.
+//
+// For example, given [10, 15, 3, 7] and k of 17, return true since 10 + 7 is 17.
+//
+// Bonus: Can you do this in one pass?
+
+/**
+ * Main class that contains all fields and methods for solving the proposed
+ * problem.
+ * @author Cole Thomson
+ *
+ */
+public class Main2 {
+
+	public static void main(String[] args) {
+		int testsPassed = 0; 		// number of tests passed
+		int testsCompleted = 0; 	// number of tests completed
+		boolean test1Result;		// result of Test 1
+		boolean test2Result;		// result of Test 2
+		boolean test3Result;		// result of Test 3
+		boolean test4Result;		// result of Test 4
+		boolean test5Result;		// result of Test 5
+		
+		// Test 1 Params (Case: sum exists)
+		int[] x1 = {10, 15, 3, 7}; 	
+		int k1 = 17; 				
+		
+		// Test 2 Params (Case: sum does not exist)
+		int[] x2 = {11, 19, 3, 60, 42, 4, 23};
+		int k2 = 74;
+		
+		// Test 3 Params (Case: only 0 in array of ints)
+		int[] x3 = {0};
+		int k3 = 10;
+		
+		// Test 4 Params (Case: empty array of ints)
+		int[] x4 = {};
+		int k4 = 97;
+		
+		// Test 5 Params: (Case: contains MAX and MIN integer value)
+		int[] x5 = {Integer.MAX_VALUE, Integer.MIN_VALUE, 1};
+		int k5 = Integer.MIN_VALUE + 1;
+		
+		// Test 1
+		if 
+		System.out.println("Test01 doesSumExist method. \n"
+				+ "k: " + k1 + "\n"
+				+ "x: " + Arrays.toString(x1) + "\n"
+				+ "Expected return: true \n"
+				+ "Actual return: " + doesSumExist(x1, k1) + "\n"
+		);
+
+		System.out.println("Test02 doesSumExist method. \n"
+				+ "l: " + k2 + "\n"
+				+ "y: " + Arrays.toString(x2) + "\n"
+				+ "Expected return: false \n"
+				+ "Actual return: " + doesSumExist(x2, k2) + "\n"
+		);
+		
+		System.out.println("Test03 doesSumExist method. \n"
+				+ "l: " + k3 + "\n"
+				+ "y: " + Arrays.toString(x3) + "\n"
+				+ "Expected return: false \n"
+				+ "Actual return: " + doesSumExist(x3, k3) + "\n"
+		);
+		
+		System.out.println("Test04 doesSumExist method. \n"
+				+ "l: " + k4 + "\n"
+				+ "y: " + Arrays.toString(x4) + "\n"
+				+ "Expected return: false \n"
+				+ "Actual return: " + doesSumExist(x4, k4) + "\n"
+		);
+		
+		System.out.println("Test05 doesSumExist method. \n"
+				+ "l: " + k5 + "\n"
+				+ "y: " + Arrays.toString(x5) + "\n"
+				+ "Expected return: true \n"
+				+ "Actual return: " + doesSumExist(x5, k5) + "\n"
+		);
+	}
+	
+	/**
+	 * Method checks if two of the numbers in the list sum to the given number:
+	 * n. The first two numbers that are found to sum to n will result in the
+	 * method returning true; otherwise if no two numbers sum to n, the method
+	 * returns false.
+	 * @param numList - list of numbers to check
+	 * @param n - number which addends are desired to be found in list
+	 * @return true if two numbers in list sum to n; and false otherwise
+	 */
+	static boolean doesSumExist(int[] numList, int n) {
+		HashSet<Integer> diffSet = new HashSet<Integer>(); // set of diffs
+		
+		// For each number in the given number list
+		for (int i = 0; i < numList.length; i++) {
+			// If set of differneces contains the current number in list
+			if (diffSet.contains(numList[i])) {
+				// a valid difference is found to sum to n: return true
+				return true;
+			}
+			// Valid difference not found, add difference to set
+			else {
+				diffSet.add(n - numList[i]);
+			}
+		}
+		// no two numbers in array add up to n: return false
+		return false; 		
+	}
+
+}
