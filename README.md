@@ -11,4 +11,4 @@ University of Wisconsin-Madison
 * Computer Science Certificate (In-Progress 2020)
 
 ### Description of Repository
-A portfolio of code and programming files to display projects/problems that I work on outside of acedemia.
+A portfolio of code and programming files to display projects/problems that I've worked on. Those worked on inside of acedemia will be marked as such withen the directory that they are located.
