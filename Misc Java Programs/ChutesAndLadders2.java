@@ -10,7 +10,7 @@ import java.util.Queue;
  *
  */
 public class ChutesAndLadders2 {
-	
+	private static final int[] BOARD = initBoard();
 	/**
 	 * Main method for testing minNumMoves method.
 	 * @param args - unused
@@ -42,6 +42,8 @@ public class ChutesAndLadders2 {
 		
 		System.out.println("Minimum number of moves for a(n) " + nDie6
 				+ " sided die is: " + minNumMoves(board,nDie6));
+		System.out.println("Minimum number of moves for a(n) " + nDie6
+				+ " sided die is: " + minNumMoves(BOARD,nDie6));
 		
 	}
 	
@@ -81,7 +83,7 @@ public class ChutesAndLadders2 {
 			
 			// Add possible spots after move with n-sided die to frontier 
 			// if they do not already exist in frontier and haven't been visited
-			for (int i = currentVertex + 1; i < currentVertex + nDie
+			for (int i = currentVertex + 1; i <= currentVertex + nDie
 					&& i < board.length; i++) {
 				
 				// If spot hasn't been visited, visit it
